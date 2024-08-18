@@ -1,26 +1,42 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, Table, DataType } from 'sequelize-typescript';
 
 @Table
-export class User extends Model {
+export class User extends Model<User> {
   @Column({
+    type: DataType.STRING,
     allowNull: false,
+    unique: true,
   })
   username: string;
 
   @Column({
+    type: DataType.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      isEmail: true,
-    },
   })
   email: string;
 
   @Column({
+    type: DataType.STRING,
     allowNull: false,
-    validate: {
-      is: /^\+?\d{10,15}$/,
-    },
   })
-  phone: string;
+  password: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  phone?: string;
+
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  createdAt: Date;
+
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  updatedAt: Date;
 }

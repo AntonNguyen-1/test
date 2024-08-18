@@ -1,14 +1,20 @@
-import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
+  @IsString()
   @IsNotEmpty()
   username: string;
 
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
-  @Matches(/^\+?\d{10,15}$/, {
-    message: 'Wrong phone number format',
-  })
-  phone: string;
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsOptional()
+  @IsNotEmpty()
+  phone?: string;
 }
